@@ -26,6 +26,7 @@ emptydict = {
 teamranks = {
 
 }
+########## IF YOU CAN SEE THIS, GIT IS WORKING :)######
 #   variables area  #
 # </editor-fold>
 
