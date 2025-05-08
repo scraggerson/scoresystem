@@ -38,7 +38,7 @@ def main_menu():
     print("1. manage events")
     print("2. manage teams and participants")
     print("3. manage competition")
-    print("4. wouldnt you like to know weather boy")
+    print("4. testing function - !!to be removed!!")
     choiceidentifier = int(input("enter option here: "))
     #select user option#
     if choiceidentifier == 1:
@@ -70,50 +70,77 @@ def menureturn():
 def event_manager():
     print("------------EVENT MANAGER------------")
     print("please choose from the following options: ")
+    print("1. manage team events")
+    print("2. manage individual events")
+    print("3. view all events")
+    print("4. return to main menu")
+    choiceidentifier = int(input("enter option here: "))
+    if choiceidentifier == 1:
+        team_event_manager()
+    elif choiceidentifier == 2:
+        individual_event_manager()
+    elif choiceidentifier == 3:
+        view_all_events()
+    elif choiceidentifier == 4:
+        main_menu()
+
+######  EVENT MANAGER    #####
+
+#####   TEAM EVENT MANAGER    #####
+def team_event_manager():
+    print("------------MANAGE TEAM EVENTS------------")
+    print("please choose from the following options: ")
     print("1. add a new team event")
-    print("2. add a new individual event")
+    print("2. remove a team event")
     print("3. view current team events")
-    print("4. view current individual events")
-    print("5. remove a team event")
-    print("6. remove an individual event")
-    print("7. view all events")
-    print("8. add an individual to an event")
-    print("9. add a team to an event")
-    print("10. view teams in an event")
-    print("11. view individuals in an event")
-    print("12. remove a team from an event")
-    print("13. remove a participant from an event")
-    print("14. return to main menu")
+    print("4. view teams in an event")
+    print("5. add a team to an event")
+    print("6. remove a team from an event")
+    print("7. return to event manager")
     choiceidentifier = int(input("enter option here: "))
     if choiceidentifier == 1:
         enter_team_event()
     elif choiceidentifier == 2:
-        enter_individual_event()
+        remove_team_event()
     elif choiceidentifier == 3:
         view_team_events()
     elif choiceidentifier == 4:
-        view_individual_events()
-    elif choiceidentifier == 5:
-        remove_team_event()
-    elif choiceidentifier == 6:
-        remove_individual_event()
-    elif choiceidentifier == 7:
-        view_all_events()
-    elif choiceidentifier == 8:
-        add_individual_to_event()
-    elif choiceidentifier == 9:
-        add_team_to_event()
-    elif choiceidentifier == 10:
         view_teams_in_event()
-    elif choiceidentifier == 11:
-        view_individuals_in_event()
-    elif choiceidentifier == 12:
+    elif choiceidentifier == 5:
+        add_team_to_event()
+    elif choiceidentifier == 6:
         remove_team_from_event()
-    elif choiceidentifier == 13:
+    elif choiceidentifier == 7:
+        event_manager()
+#####   TEAM EVENT MANAGER    #####
+
+#####   INDIVIDUAL EVENT MANAGER    #####
+def individual_event_manager():
+    print("------------MANAGE INDIVIDUAL EVENTS------------")
+    print("please choose from the following options: ")
+    print("1. add a new individual event")
+    print("2. remove an individual event")
+    print("3. view current individual events")
+    print("4. view individuals in an event")
+    print("5. add an individual to an event")
+    print("6. remove an individual from an event")
+    print("7. return to event manager")
+    choiceidentifier = int(input("enter option here: "))
+    if choiceidentifier == 1:
+        enter_individual_event()
+    elif choiceidentifier == 2:
+        remove_individual_event()
+    elif choiceidentifier == 3:
+        view_individual_events()
+    elif choiceidentifier == 4:
+        view_individuals_in_event()
+    elif choiceidentifier == 5:
+        add_individual_to_event()
+    elif choiceidentifier == 6:
         remove_individual_from_event()
-    elif choiceidentifier == 14:
-        main_menu()
-######  EVENT MANAGER    #####
+    elif choiceidentifier == 7:
+        event_manager()
+#####   INDIVIDUAL EVENT MANAGER    #####
 
 ######  EVENT MANAGER RETURN    #####
 def eventmanreturn():
@@ -121,29 +148,17 @@ def eventmanreturn():
     event_manager()
 ######  EVENT MANAGER RETURN    #####
 
-#####   VIEW TEAM EVENTS #####
-def view_team_events():
-    print("------------TEAM EVENTS------------")
-    with open("teameventstore.json", 'r',) as f:
-        teameventlist = json.load(f)
-        if not teameventlist:
-            print("no events found!")
-        else:
-            print(teameventlist)
-    eventmanreturn()
-#####   VIEW TEAM EVENTS #####
+######  TEAM MANAGER RETURN    #####
+def teameventman():
+    teameventman = input("press enter to return to team event manager: ")
+    team_event_manager()
+######  TEAM MANAGER RETURN    #####
 
-#####   VIEW INDIVIDUAL EVENTS #####
-def view_individual_events():
-    print("------------INDIVIDUAL EVENTS------------")
-    with open("individualeventstore.json", 'r',) as f:
-        individualeventlist = json.load(f)
-    if not individualeventlist:
-        print("no events found!")
-    else:
-        print(individualeventlist)
-    eventmanreturn()
-#####   VIEW INDIVIDUAL EVENTS #####
+######  INDIVIDUAL MANAGER RETURN    #####
+def individualeventman():
+    individualeventman = input("press enter to return to individual event manager: ")
+    individual_event_manager()
+######  INDIVIDUAL MANAGER RETURN    #####
 
 #####   VIEW ALL EVENTS #####
 def view_all_events():
@@ -165,6 +180,53 @@ def view_all_events():
     eventmanreturn()
 #####   VIEW ALL EVENTS #####
 
+# <editor-fold desc="MANAGE TEAM EVENTS">
+#####   VIEW TEAM EVENTS #####
+def view_team_events():
+    print("------------TEAM EVENTS------------")
+    with open("teameventstore.json", 'r',) as f:
+        teameventlist = json.load(f)
+        if not teameventlist:
+            print("no events found!")
+        else:
+            print(teameventlist)
+    teameventman()
+#####   VIEW TEAM EVENTS #####
+
+######  REMOVE TEAM EVENT    #####
+def remove_team_event():
+    print("------------REMOVE TEAM EVENT------------")
+    with open("teameventstore.json", 'r',) as f:
+        teameventlist = json.load(f)
+    if not teameventlist:
+        print("no events found! returning to team event manager.")
+        teameventman()
+    else:
+        print(teameventlist)
+        print("enter the name of the event you would like to remove. (case sensitive)")
+        removaltarget = input("enter name here: ")
+        if removaltarget in teameventlist:
+            teameventlist.remove(removaltarget)
+            with open("teameventstore.json", 'w') as f:
+                json.dump(teameventlist, f, indent=2)
+            if os.path.exists(f"{removaltarget}.json"):
+                os.remove(f"{removaltarget}.json")
+            print(f"{removaltarget} has been removed from the list successfully.")
+            print("what would you like to do?")
+            print("1. remove another event")
+            print("2. return to event manager")
+            repeat = int(input("enter option here: "))
+            if repeat == 1:
+                remove_team_event()
+            elif repeat == 2:
+                teameventman()
+            else:
+                teameventman()
+        else:
+            print("the data you entered was invalid or not in the list! please try again.")
+            remove_team_event()
+######  REMOVE TEAM EVENT    #####
+
 ######  ENTER TEAM EVENT    #####
 def enter_team_event():
     print("------------ENTER TEAM EVENT------------")
@@ -185,100 +247,10 @@ def enter_team_event():
     elif repeat == 2:
         view_team_events()
     elif repeat == 3:
-        event_manager()
+        teameventman()
     else:
-        event_manager()
+        teameventman()
 ######  ENTER TEAM EVENT    #####
-
-######  ENTER INDIVIDUAL EVENT    #####
-def enter_individual_event():
-    print("------------ENTER INDIVIDUAL EVENT------------")
-    eventname = str(input("enter event name here: "))
-    individualeventlist.append(eventname)
-    with open("individualeventstore.json", 'w') as f:
-        json.dump(individualeventlist, f, indent=2)
-    print("what would you like to do?")
-    print("1. enter another event")
-    print("2. view current individual events")
-    print("3. return to event manager")
-    repeat = int(input("enter option here: "))
-    if repeat == 1:
-        enter_individual_event()
-    elif repeat == 2:
-        view_individual_events()
-    elif repeat == 3:
-        event_manager()
-    else:
-        event_manager()
-######  ENTER INDIVIDUAL EVENT    #####
-
-######  REMOVE TEAM EVENT    #####
-def remove_team_event():
-    print("------------REMOVE TEAM EVENT------------")
-    with open("teameventstore.json", 'r',) as f:
-        teameventlist = json.load(f)
-    if not teameventlist:
-        print("no events found! returning to event manager.")
-        event_manager()
-    else:
-        print(teameventlist)
-        print("enter the name of the event you would like to remove. (case sensitive)")
-        removaltarget = input("enter name here: ")
-        if removaltarget in teameventlist:
-            teameventlist.remove(removaltarget)
-            with open("teameventstore.json", 'w') as f:
-                json.dump(teameventlist, f, indent=2)
-            if os.path.exists(f"{removaltarget}.json"):
-                os.remove(f"{removaltarget}.json")
-            print(f"{removaltarget} has been removed from the list successfully.")
-            print("what would you like to do?")
-            print("1. remove another event")
-            print("2. return to event manager")
-            repeat = int(input("enter option here: "))
-            if repeat == 1:
-                remove_team_event()
-            elif repeat == 2:
-                event_manager()
-            else:
-                event_manager()
-        else:
-            print("the data you entered was invalid or not in the list! please try again.")
-            remove_team_event()
-######  REMOVE TEAM EVENT    #####
-
-######  REMOVE INDIVIDUAL EVENT    #####
-def remove_individual_event():
-    print("------------REMOVE INDIVIDUAL EVENT------------")
-    with open("individualeventstore.json", 'r',) as f:
-        individualeventlist = json.load(f)
-    if not individualeventlist:
-        print("no events found! returning to event manager.")
-        event_manager()
-    else:
-        print(individualeventlist)
-        print("enter the name of the event you would like to remove. (case sensitive)")
-        removaltarget = input("enter name here: ")
-        if removaltarget in individualeventlist:
-            individualeventlist.remove(removaltarget)
-            with open("individualeventstore.json", 'w') as f:
-                json.dump(individualeventlist, f, indent=2)
-            if os.path.exists(f"{removaltarget}.json"):
-                os.remove(f"{removaltarget}.json")
-            print(f"{removaltarget} has been removed from the list successfully.")
-            print("what would you like to do?")
-            print("1. remove another event")
-            print("2. return to event manager")
-            repeat = int(input("enter option here: "))
-            if repeat == 1:
-                remove_individual_event()
-            elif repeat == 2:
-                event_manager()
-            else:
-                event_manager()
-        else:
-            print("the data you entered was invalid or not in the list! please try again.")
-            remove_individual_event()
-######  REMOVE INDIVIDUAL EVENT    #####
 
 ######  ADD TEAM TO EVENT    #####
 def add_team_to_event():
@@ -288,7 +260,7 @@ def add_team_to_event():
         eventlist = json.load(f)
         if not eventlist:
             print("no events found!")
-            eventmanreturn()
+            teameventman()
         else:
             print(f"AVAILABLE TEAM EVENTS: {eventlist}")
             print("-----------------------------------------")
@@ -323,7 +295,7 @@ def add_team_to_event():
                         teamscoredict[f"{chosenevent}"] = 0
                         with open(f"{chosenteam}score.json", 'w') as f:
                             json.dump(teamscoredict, f, indent=2)
-                        eventmanreturn()
+                        teameventman()
                     except:
                         teamscoredict = {
 
@@ -331,7 +303,7 @@ def add_team_to_event():
                         teamscoredict[f"{chosenevent}"] = 0
                         with open(f"{chosenteam}score.json", 'w') as f:
                             json.dump(teamscoredict, f, indent=2)
-                        eventmanreturn()
+                        teameventman()
             else:
                 print("event not found! please try again.")
                 add_team_to_event()
@@ -345,7 +317,7 @@ def remove_team_from_event():
         eventlist = json.load(f)
         if not eventlist:
             print("no events found!")
-            eventmanreturn()
+            teameventman()
         else:
             print(f"AVAILABLE TEAM EVENTS: {eventlist}")
             print("-----------------------------------------")
@@ -370,14 +342,109 @@ def remove_team_from_event():
                     with open(f"{chosenevent}.json", 'w') as f:
                         json.dump(teamsinevent, f, indent=2)
                     print(f"removed {chosenteam} from {chosenevent}!")
-                    eventmanreturn()
+                    teameventman()
                 else:
                     print(f"{chosenteam} is not in {chosenevent}!")
-                    eventmanreturn()
+                    teameventman()
             else:
                 print("event not found! please try again.")
                 remove_team_from_event()
 ######  REMOVE TEAM FROM EVENT    #####
+
+######  VIEW TEAMS IN EVENT    #####
+def view_teams_in_event():
+    print("------------VIEW TEAMS IN EVENT------------")
+    print("please choose an event to view its competitors.")
+    with open("teameventstore.json", 'r', ) as f:
+        teameventlist = json.load(f)
+        if not teameventlist:
+            print("no events found!")
+            individualeventman()
+        else:
+            print(teameventlist)
+            eventtoview = str(input("enter option here: "))
+            try:
+                with open(f"{eventtoview}.json", 'r') as f:
+                    teamlist = json.load(f)
+                if not teamlist:
+                    print(f"no teams found in {eventtoview}!")
+                else:
+                    print(f"teams in {eventtoview}: {teamlist}")
+                    teameventman()
+            except:
+                print(f"no event file for '{eventtoview}' could be found, please add a team to '{eventtoview}' and try again.")
+                teameventman()
+######  VIEW TEAMS IN EVENT    #####
+# </editor-fold>
+
+# <editor-fold desc="MANAGE INDIVIDUAL EVENTS">
+#####   VIEW INDIVIDUAL EVENTS #####
+def view_individual_events():
+    print("------------INDIVIDUAL EVENTS------------")
+    with open("individualeventstore.json", 'r',) as f:
+        individualeventlist = json.load(f)
+    if not individualeventlist:
+        print("no events found!")
+    else:
+        print(individualeventlist)
+    individualeventman()
+#####   VIEW INDIVIDUAL EVENTS #####
+
+######  ENTER INDIVIDUAL EVENT    #####
+def enter_individual_event():
+    print("------------ENTER INDIVIDUAL EVENT------------")
+    eventname = str(input("enter event name here: "))
+    individualeventlist.append(eventname)
+    with open("individualeventstore.json", 'w') as f:
+        json.dump(individualeventlist, f, indent=2)
+    print("what would you like to do?")
+    print("1. enter another event")
+    print("2. view current individual events")
+    print("3. return to event manager")
+    repeat = int(input("enter option here: "))
+    if repeat == 1:
+        enter_individual_event()
+    elif repeat == 2:
+        view_individual_events()
+    elif repeat == 3:
+        individualeventman()
+    else:
+        individualeventman()
+######  ENTER INDIVIDUAL EVENT    #####
+
+######  REMOVE INDIVIDUAL EVENT    #####
+def remove_individual_event():
+    print("------------REMOVE INDIVIDUAL EVENT------------")
+    with open("individualeventstore.json", 'r',) as f:
+        individualeventlist = json.load(f)
+    if not individualeventlist:
+        print("no events found! returning to individual event manager.")
+        individualeventman()
+    else:
+        print(individualeventlist)
+        print("enter the name of the event you would like to remove. (case sensitive)")
+        removaltarget = input("enter name here: ")
+        if removaltarget in individualeventlist:
+            individualeventlist.remove(removaltarget)
+            with open("individualeventstore.json", 'w') as f:
+                json.dump(individualeventlist, f, indent=2)
+            if os.path.exists(f"{removaltarget}.json"):
+                os.remove(f"{removaltarget}.json")
+            print(f"{removaltarget} has been removed from the list successfully.")
+            print("what would you like to do?")
+            print("1. remove another event")
+            print("2. return to individual event manager")
+            repeat = int(input("enter option here: "))
+            if repeat == 1:
+                remove_individual_event()
+            elif repeat == 2:
+                individualeventman()
+            else:
+                individualeventman()
+        else:
+            print("the data you entered was invalid or not in the list! please try again.")
+            remove_individual_event()
+######  REMOVE INDIVIDUAL EVENT    #####
 
 ######  REMOVE INDIVIDUAL FROM EVENT    #####
 def remove_individual_from_event():
@@ -387,7 +454,7 @@ def remove_individual_from_event():
         eventlist = json.load(f)
         if not eventlist:
             print("no events found!")
-            eventmanreturn()
+            individualeventman()
         else:
             print(f"AVAILABLE TEAM EVENTS: {eventlist}")
             print("-----------------------------------------")
@@ -412,10 +479,10 @@ def remove_individual_from_event():
                     with open(f"{chosenevent}.json", 'w') as f:
                         json.dump(playersinevent, f, indent=2)
                     print(f"removed {chosenplayer} from {chosenevent}!")
-                    eventmanreturn()
+                    individualeventman()
                 else:
                     print(f"{chosenplayer} is not in {chosenevent}!")
-                    eventmanreturn()
+                    individualeventman()
             else:
                 print("event not found! please try again.")
                 remove_individual_from_event()
@@ -429,7 +496,7 @@ def add_individual_to_event():
         eventlist = json.load(f)
         if not eventlist:
             print("no events found!")
-            eventmanreturn()
+            individualeventman()
         else:
             print(f"AVAILABLE INDIVIDUAL EVENTS: {eventlist}")
             print("-----------------------------------------")
@@ -452,7 +519,7 @@ def add_individual_to_event():
                 chosenplayer = str(input("enter participant name here: "))
                 if chosenplayer in playersinevent:
                     print(f"that team is already participating in {chosenevent}!")
-                    add_team_to_event()
+                    add_individual_to_event()
                 else:
                     playersinevent.append(chosenplayer)
                     print(f"added {chosenplayer} to {chosenevent}.")
@@ -464,7 +531,7 @@ def add_individual_to_event():
                         playerscoredict[f"{chosenevent}"] = 0
                         with open(f"{chosenplayer}score.json", 'w') as f:
                             json.dump(playerscoredict, f, indent=2)
-                        eventmanreturn()
+                        individualeventman()
                     except:
                         playerscoredict = {
 
@@ -472,34 +539,11 @@ def add_individual_to_event():
                         playerscoredict[f"{chosenevent}"] = 0
                         with open(f"{chosenplayer}score.json", 'w') as f:
                             json.dump(playerscoredict, f, indent=2)
-                        eventmanreturn()
+                        individualeventman()
             else:
                 print("event not found! please try again.")
-                add_team_to_event()
-
-######  VIEW TEAMS IN EVENT    #####
-def view_teams_in_event():
-    print("------------VIEW TEAMS IN EVENT------------")
-    print("please choose an event to view its competitors.")
-    with open("teameventstore.json", 'r', ) as f:
-        teameventlist = json.load(f)
-        if not teameventlist:
-            print("no events found!")
-        else:
-            print(teameventlist)
-            eventtoview = str(input("enter option here: "))
-            try:
-                with open(f"{eventtoview}.json", 'r') as f:
-                    teamlist = json.load(f)
-                if not teamlist:
-                    print(f"no teams found in {eventtoview}!")
-                else:
-                    print(f"teams in {eventtoview}: {teamlist}")
-                    eventmanreturn()
-            except:
-                print(f"no event file for '{eventtoview}' could be found, please add a team to '{eventtoview}' and try again.")
-                eventmanreturn()
-######  VIEW TEAMS IN EVENT    #####
+                add_individual_to_event()
+######  ADD INDIVIDUAL TO EVENT    #####
 
 ######  VIEW INDIVIDUALS IN EVENT    #####
 def view_individuals_in_event():
@@ -509,6 +553,7 @@ def view_individuals_in_event():
         soloplayerlist = json.load(f)
         if not soloplayerlist:
             print("no events found!")
+            individualeventman()
         else:
             print(soloplayerlist)
             eventtoview = str(input("enter option here: "))
@@ -519,17 +564,18 @@ def view_individuals_in_event():
                     print(f"no participants found in {eventtoview}!")
                 else:
                     print(f"participants in {eventtoview}: {playerlist}")
-                    eventmanreturn()
+                    individualeventman()
             except:
                 print(
                     f"no event file for '{eventtoview}' could be found, please add participants to '{eventtoview}' and try again.")
-                eventmanreturn()
+                individualeventman()
 ######  VIEW INDIVIDUALS IN EVENT    #####
+# </editor-fold>
 
 ########### EVENT MANAGEMENT    ###########
 # </editor-fold>
 
-# <editor-fold desc="PARTICIPANT MANAGEMENT">
+# <editor-fold desc="PARTICIPANT/TEAM MANAGEMENT">
 ######  PARTICIPANT MANAGER    #####
 def participant_manager():
     print("------------PARTICIPANT MANAGER------------")
