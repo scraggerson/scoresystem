@@ -4,10 +4,11 @@ from operator import truediv
 import json
 import os
 try:
-  import numpy
+  import numpy as np
 except:
   print("Installing numpy dependancy")
   os.system("pip install numpy")
+  import numpy as np
 eventcount = 0
 eventchoice = True
 teameventlist = []
@@ -26,7 +27,6 @@ emptydict = {
 teamranks = {
 
 }
-########## IF YOU CAN SEE THIS, GIT IS WORKING :)######
 #   variables area  #
 # </editor-fold>
 
@@ -525,6 +525,7 @@ def view_individuals_in_event():
                     f"no event file for '{eventtoview}' could be found, please add participants to '{eventtoview}' and try again.")
                 eventmanreturn()
 ######  VIEW INDIVIDUALS IN EVENT    #####
+
 ########### EVENT MANAGEMENT    ###########
 # </editor-fold>
 
@@ -904,6 +905,7 @@ def competition_manager():
     print("3. edit team scores")
     print("4. edit individual scores")
     print("5. view team rankings")
+    print("6. view individual rankings")
     print("6. return to main menu")
     div()
     choiceidentifier = int(input("enter option here: "))
@@ -918,6 +920,8 @@ def competition_manager():
     elif choiceidentifier == 5:
         view_team_ranking()
     elif choiceidentifier == 6:
+        view_individual_ranking()
+    elif choiceidentifier == 7:
         main_menu()
 #####   COMPETITION MANAGER ######
 
@@ -1068,15 +1072,38 @@ def view_team_ranking():
     with open("teamranks.json", 'r') as f:
         teamranks = json.load(f)
     print("------------VIEW TEAM RANKING------------")
-    print("TEAM RANKINGS: ")
-    keys = list(teamranks.keys())
-    values = list(teamranks.values())
-    sorted_ascending = np.argsort(values)
-    sorted_descending = sorted_ascending[::-1]
-    sorted_dict = {keys[i]: values[i] for i in sorted_descending}
-    for index, (key, value) in enumerate(sorted_dict.items(), start=1):
-        print(f"{index}: {key}-{value}")
+    if not teamranks:
+        print("no team rankings found! please add teams or assign scores.")
+        compmanreturn()
+    else:
+        print("TEAM RANKINGS: ")
+        keys = list(teamranks.keys())
+        values = list(teamranks.values())
+        sorted_ascending = np.argsort(values)
+        sorted_descending = sorted_ascending[::-1]
+        sorted_dict = {keys[i]: values[i] for i in sorted_descending}
+        for index, (key, value) in enumerate(sorted_dict.items(), start=1):
+            print(f"{index}: {key}-{value}")
 #####   VIEW TEAM RANKING   #####
+
+#####   VIEW INDIVIDUAL RANKING   #####
+def view_individual_ranking():
+    with open("soloranks.json", 'r') as f:
+        soloranks = json.load(f)
+    print("------------VIEW INDIVIDUAL RANKING------------")
+    if not soloranks:
+        print("no individual rankings found! please add individuals or assign scores.")
+        compmanreturn()
+    else:
+        print("INDIVIDUAL RANKINGS: ")
+        keys = list(soloranks.keys())
+        values = list(soloranks.values())
+        sorted_ascending = np.argsort(values)
+        sorted_descending = sorted_ascending[::-1]
+        sorted_dict = {keys[i]: values[i] for i in sorted_descending}
+        for index, (key, value) in enumerate(sorted_dict.items(), start=1):
+            print(f"{index}: {key}-{value}")
+#####   VIEW INDIVIDUAL RANKING   #####
 # </editor-fold>
 
 def testing_func():
